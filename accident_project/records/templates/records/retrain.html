@@ -1,0 +1,26 @@
+{% extends "records/base.html" %}
+
+{% block content %}
+<h1>🔄 Retrain ML Model</h1>
+
+<div class="card">
+    <p>Database Contains <b>{{ total_records }} records</b><br>
+    Press "Retrain Now" to retrain Random Forest + XGBoost models. The model will agirn retrain from data।<br>
+    <b>~It takes 30 sec</b> Don't Leave The Page</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">🔄 Retrain Now</button>
+    </form>
+</div>
+
+{% if result %}
+<div class="card">
+    <h3>📊 Training Result:</h3>
+    <pre style="font-size: 11px; background: #f5f5f5; padding: 12px;
+         border-radius: 6px; overflow-x: scroll;">{{ result }}</pre>
+    <p style="color: #388e3c;">✅ Models updated!
+       <a href="/predict/">Predict page</a> Uses new model।</p>
+</div>
+{% endif %}
+{% endblock %}

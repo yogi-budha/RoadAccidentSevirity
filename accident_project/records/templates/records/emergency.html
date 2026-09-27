@@ -1,0 +1,69 @@
+{% extends "records/base.html" %}
+
+{% block content %}
+<h1>🚑 Emergency Response Lookup</h1>
+
+<div class="card">
+    <p style="color:#666;">Choose the accident happened area — Nearby hospital and Poilce Station is displayed।</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-row">
+            <div>
+                <label>Accident Location:</label>
+                <select name="location" required>
+                    {% for l in locations %}
+                        <option value="{{ l }}" {% if l == selected %}selected{% endif %}>{{ l }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <button type="submit" style="margin-top: 24px;">🚑 Find Emergency Contacts</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% if result %}
+<div class="card" style="border: 2px solid #d32f2f; background: #fff5f5;">
+    <h2 style="color: #d32f2f;">🚨 EMERGENCY RESPONSE</h2>
+    <p>📍 <b>{{ selected }}</b> —
+       <a href="{{ result.accident_map }}" target="_blank">📍 See in Google Maps</a></p>
+</div>
+
+<div class="cards-row">
+    {% if result.hospital %}
+    <div class="card">
+        <h3>🏥 Nearest Hospital</h3>
+        <h2>{{ result.hospital.name }}</h2>
+        <p>📍 <b>{{ result.hospital_km }} km</b> far</p>
+        <p>📞 <b>{{ result.hospital.phone }}</b></p>
+        <p><a href="{{ result.hospital_map }}" target="_blank">🗺️ See Route</a></p>
+    </div>
+    {% endif %}
+
+    {% if result.police %}
+    <div class="card">
+        <h3>👮 Nearest Police Station</h3>
+        <h2>{{ result.police.name }}</h2>
+        <p>📍 <b>{{ result.police_km }} km</b> टाढा</p>
+        <p>📞 <b>{{ result.police.phone }}</b></p>
+        <p><a href="{{ result.police_map }}" target="_blank">🗺️ See Route</a></p>
+    </div>
+    {% endif %}
+</div>
+
+<div class="card">
+    <h3>☎️ Emergency Hotlines (Nepal)</h3>
+    <p style="font-size: 18px;">
+        🚨 Police: <b>100</b> &nbsp;|&nbsp;
+        🚑 Ambulance: <b>102</b> &nbsp;|&nbsp;
+        🚦Traffic: <b>103</b>
+    </p>
+</div>
+{% elif selected %}
+<div class="card" style="background:#fff3e0;">
+    <p>⚠️ "{{ selected }}" Coordinates are not present in our list।</p>
+</div>
+{% endif %}
+{% endblock %}

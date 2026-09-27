@@ -1,0 +1,89 @@
+body { font-family: Arial; margin: 0; background: #f4f6f8; }
+
+.navbar {
+    background: #1a3d6d;
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.navbar .logo {
+    color: white; font-weight: bold;
+    margin-right: 22px; font-size: 15px;
+    white-space: nowrap;
+}
+.navbar a {
+    color: #d6e4ff; text-decoration: none;
+    padding: 6px 10px; font-size: 13.5px;
+    border-radius: 5px;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+}
+.navbar a:hover {
+    background: rgba(255,255,255,0.15);
+    color: #ffd54f;
+}
+.navbar .user-info {
+    color: #ffd54f; margin-left: auto;
+    font-size: 13px; white-space: nowrap;
+    padding-right: 10px;
+}
+.navbar a.logout-link {
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 5px 12px;
+}
+.container { max-width: 950px; margin: 25px auto; padding: 0 18px; }
+
+.card {
+    background: white; border-radius: 8px; padding: 22px;
+    margin-bottom: 18px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.14);
+}
+.cards-row { display: flex; gap: 18px; }
+.cards-row .card { flex: 1; text-align: center; }
+.card h2 { color: #1a3d6d; }
+
+table { width: 100%; border-collapse: collapse; background: white; }
+th { background: #1a3d6d; color: white; padding: 10px; text-align: left; }
+td { padding: 9px; border-bottom: 1px solid #ddd; }
+
+.badge-red    { background: #d32f2f; color: white; padding: 3px 10px; border-radius: 4px; }
+.badge-orange { background: #f57c00; color: white; padding: 3px 10px; border-radius: 4px; }
+.badge-green  { background: #388e3c; color: white; padding: 3px 10px; border-radius: 4px; }
+
+.error-box { background: #ffebee; color: #b71c1c; padding: 12px; border-radius: 6px; }
+
+
+
+form input, form select {
+    width: 100%; padding: 9px; margin: 6px 0;
+    border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;
+}
+form button {
+    background: #1a3d6d; color: white; padding: 11px 25px;
+    border: none; border-radius: 5px; cursor: pointer; font-size: 15px;
+}
+form button:hover { background: #2c5aa0; }
+/* Day 4 additions */
+.form-row { display: flex; gap: 15px; }
+.form-row > div { flex: 1; }
+form label { font-weight: bold; font-size: 14px; margin-top: 8px; display: block; }
+
+.badge-gray { background: #757575; color: white; padding: 3px 10px; border-radius: 4px; }
+
+.flash { padding: 12px 18px; border-radius: 6px; margin: 12px 0; font-weight: bold; }
+.flash-success { background: #e8f5e9; color: #2e7d32; border: 1px solid #2e7d32; }
+.flash-error { background: #ffebee; color: #b71c1c; border: 1px solid #b71c1c; }
+
+.alert-unread { border-left: 5px solid #d32f2f; }
+
+.pagination { margin: 18px 0; text-align: center; }
+.pagination a {
+    padding: 6px 14px; background: #1a3d6d; color: white;
+    text-decoration: none; border-radius: 4px; margin: 0 8px;
+}

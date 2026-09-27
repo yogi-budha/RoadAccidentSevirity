@@ -1,0 +1,24 @@
+{% extends "records/base.html" %}
+
+{% block content %}
+<h1>📊 Dashboard</h1>
+
+<div class="cards-row">
+    <div class="card">
+        <h2>{{ total_accidents }}</h2>
+        <p>Total Accidents 🚗</p>
+    </div>
+    <div class="card">
+        <h2 style="color:#d32f2f;">{{ total_deaths }}</h2>
+        <p>Total Deaths ⚠️</p>
+    </div>
+    <div class="card">
+        <h2 style="color:#f57c00;">{{ total_injuries }}</h2>
+        <p>Total Injuries 🤕</p>
+    </div>
+    <div class="card">
+        <h2 style="color:#1a3d6d;">{{ unread_alerts }}</h2>
+        <p>Unread Alerts 🔔</p>
+    </div>
+</div>
+{% endblock %}

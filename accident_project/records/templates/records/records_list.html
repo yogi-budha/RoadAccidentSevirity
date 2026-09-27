@@ -1,0 +1,54 @@
+{% extends "records/base.html" %}
+
+{% block content %}
+<h1>📋 Accident Records ({{ records.paginator.count }} total)</h1>
+
+<div class="card">
+    <table>
+        <tr>
+            <th>Date (BS)</th>
+            <th>Location</th>
+            <th>Cause</th>
+            <th>Vehicle</th>
+            <th>D</th>
+            <th>S</th>
+            <th>M</th>
+            <th>Season</th>
+            <th>Severity</th>
+        </tr>
+        {% for r in records %}
+        <tr>
+            <td>{{ r.bs_date }}</td>
+            <td>{{ r.location_name }}</td>
+            <td>{{ r.cause }}</td>
+            <td>{{ r.vehicle_type }}</td>
+            <td>{{ r.deaths }}</td>
+            <td>{{ r.serious }}</td>
+            <td>{{ r.minor }}</td>
+            <td>{{ r.season }}</td>
+            <td>
+                {% if r.predicted_severity == "Fatal" %}
+                    <span class="badge-red">{{ r.predicted_severity }}</span>
+                {% elif r.predicted_severity == "Serious" %}
+                    <span class="badge-orange">{{ r.predicted_severity }}</span>
+                {% elif r.predicted_severity == "Slight" %}
+                    <span class="badge-green">{{ r.predicted_severity }}</span>
+                {% else %}
+                    <span class="badge-gray">{{ r.predicted_severity }}</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div class="pagination">
+    {% if records.has_previous %}
+        <a href="?page={{ records.previous_page_number }}">← Prev</a>
+    {% endif %}
+    <span>Page {{ records.number }} / {{ records.paginator.num_pages }}</span>
+    {% if records.has_next %}
+        <a href="?page={{ records.next_page_number }}">Next →</a>
+    {% endif %}
+</div>
+{% endblock %}

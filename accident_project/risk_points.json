@@ -1,0 +1,74 @@
+{
+  "vehicle": {
+    "rates": {
+      "Two-Wheeler": 2.7,
+      "Three-Wheeler": 0.9,
+      "Four-Wheeler": 3.5
+    },
+    "points": {
+      "Two-Wheeler": 2,
+      "Three-Wheeler": 1,
+      "Four-Wheeler": 3
+    }
+  },
+  "time": {
+    "rates": {
+      "Night": 0.0,
+      "Day": 2.9
+    },
+    "points": {
+      "Night": 0,
+      "Day": 2
+    }
+  },
+  "season": {
+    "rates": {
+      "Monsoon": 3.6,
+      "Festival": 1.0,
+      "Foggy": 2.9,
+      "Normal": 3.3
+    },
+    "points": {
+      "Monsoon": 2,
+      "Festival": 1,
+      "Foggy": 2,
+      "Normal": 2
+    }
+  },
+  "location": {
+    "rates": {
+      "Airchowk": 0.0,
+      "Bus Park": 0.0,
+      "Mangalgadhi Chowk": 0.0,
+      "Mulpani Chowk": 6.5,
+      "Pipira Chowk": 3.8,
+      "Dailekh Chowk": 0.0,
+      "Surkhet Hospital": 0.0,
+      "Radio Nepal": 5.6,
+      "Padampur Chowk": 0.0,
+      "Narayan Petrol Pump": 6.7,
+      "Bulbule Gate": 0.0,
+      "Tempo Park": 9.1,
+      "Dhodhekhali": 0.0,
+      "China Pul": 0.0,
+      "Bulbule Chowk": 0.0
+    },
+    "points": {
+      "Airchowk": 0,
+      "Bus Park": 0,
+      "Mangalgadhi Chowk": 0,
+      "Mulpani Chowk": 2,
+      "Pipira Chowk": 1,
+      "Dailekh Chowk": 0,
+      "Surkhet Hospital": 0,
+      "Radio Nepal": 2,
+      "Padampur Chowk": 0,
+      "Narayan Petrol Pump": 2,
+      "Bulbule Gate": 0,
+      "Tempo Park": 3,
+      "Dhodhekhali": 0,
+      "China Pul": 0,
+      "Bulbule Chowk": 0
+    }
+  }
+}

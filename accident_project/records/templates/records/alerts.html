@@ -1,0 +1,27 @@
+{% extends "records/base.html" %}
+
+{% block content %}
+<h1>🔔 Alerts</h1>
+
+<form method="POST" action="{% url 'alerts_read' %}">
+    {% csrf_token %}
+    <button type="submit">✅ Mark All Read</button>
+</form>
+<br>
+
+{% for a in alerts %}
+<div class="card {% if not a.is_read %}alert-unread{% endif %}">
+    {% if a.level == "urgent" %}
+        <span class="badge-red">URGENT</span>
+    {% elif a.level == "high" %}
+        <span class="badge-orange">HIGH</span>
+    {% else %}
+        <span class="badge-gray">INFO</span>
+    {% endif %}
+    {{ a.message }}
+    <br><small>{{ a.created_at }}</small>
+</div>
+{% empty %}
+<p>No alerts yet.</p>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "records/base.html" %}
+
+{% block content %}
+<h1>🗺️ Accident Hotspot Map - Birendranagar</h1>
+
+<div class="card">
+    <form method="GET" class="form-row" style="align-items: flex-end;">
+        <div>
+            <label>Season Filter:</label>
+            <select name="season">
+                <option value="all" {% if season == "all" %}selected{% endif %}>All Time</option>
+                <option value="monsoon" {% if season == "monsoon" %}selected{% endif %}>🌧️ Monsoon</option>
+                <option value="festival" {% if season == "festival" %}selected{% endif %}>🎯 Festival (Dashain-Tihar)</option>
+                <option value="foggy" {% if season == "foggy" %}selected{% endif %}>🌫️ Foggy (Poush-Magh)</option>
+                <option value="normal" {% if season == "normal" %}selected{% endif %}>Normal Days</option>
+            </select>
+        </div>
+        <div>
+            <button type="submit">Apply Filter</button>
+        </div>
+    </form>
+</div>
+
+<div class="card">
+    <p>
+        <b>Hotspot definition:</b> location with more than
+        <b>{{ threshold }}</b> accidents (mean + 1 standard deviation)
+        &nbsp;|&nbsp;
+        <b>Result:</b> 🔥 <b style="color:#d32f2f;">{{ hotspot_count }} hotspots</b>
+        out of {{ total_locations }} locations
+        {% if season != "all" %} <i>({{ season }} season)</i> {% endif %}
+    </p>
+</div>
+
+{% if unknown %}
+<div class="card" style="background:#fff3e0;">
+    <small>⚠️ No Coordinates in {{ unknown|length }} Location (map ma
+    dekhindaina): {% for u in unknown %}{{ u.0 }}{% if not forloop.last %}, {% endif %}{% endfor %}</small>
+</div>
+{% endif %}
+
+<div class="card" style="padding: 5px;">
+    {{ map_html|safe }}
+</div>
+{% endblock %}

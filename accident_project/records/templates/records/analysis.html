@@ -1,0 +1,58 @@
+{% extends "records/base.html" %}
+
+{% block content %}
+<h1>📈 Analysis & Statistics</h1>
+
+<!-- Festival insight box -->
+<div class="card" style="border-left: 5px solid #f57c00;">
+    <h3>🎯 Festival Season Insight (Dashain-Tihar)</h3>
+    <p>
+        During festival months: <b>{{ festival_rate }} accidents/day</b> vs
+        normal days: <b>{{ normal_rate }} accidents/day</b><br>
+        → <b style="color:#d32f2f; font-size: 18px;">{{ festival_ratio }}× higher accident rate during festivals!</b>
+        ({{ festival_count }} festival accidents total)
+    </p>
+</div>
+
+<!-- Top 10 hotspots table -->
+<div class="card">
+    <h3>🔥 Top 10 Accident Hotspots</h3>
+    <table>
+        <tr><th>#</th><th>Location</th><th>Accidents</th><th>Deaths</th></tr>
+        {% for loc in top_locations %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><b>{{ loc.location_name }}</b></td>
+            <td>{{ loc.total }}</td>
+            <td style="color:#d32f2f;">{{ loc.deaths }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<!-- Top causes -->
+<div class="card">
+    <h3>⚡ Main Causes</h3>
+    <table>
+        <tr><th>Cause</th><th>Accidents</th><th>%</th></tr>
+        {% for c in top_causes %}
+        <tr>
+            <td>{{ c.cause }}</td>
+            <td>{{ c.total }}</td>
+            <td>{{ c.total }}% </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<!-- Charts -->
+<div class="card">
+    <h3>📊 Charts</h3>
+    <img src="/static/charts/top_locations.png" style="width:100%;">
+    <img src="/static/charts/causes.png" style="width:48%;">
+    <img src="/static/charts/season.png" style="width:48%;">
+    <img src="/static/charts/hours.png" style="width:100%;">
+    <img src="/static/charts/severity.png" style="width:48%;">
+    <img src="/static/charts/yearly.png" style="width:48%;">
+</div>
+{% endblock %}

@@ -1,0 +1,300 @@
+```html
+{% extends "records/base.html" %}
+
+{% block content %}
+
+<h1>📤 Add Accident Records</h1>
+
+<!-- SECTION 1: MANUAL ENTRY -->
+
+<div class="card">
+
+    <h3>📝 Manual Entry (One by One)</h3>
+
+    <form method="POST" action="/entry/">
+
+        {% csrf_token %}
+
+        <div class="form-row">
+
+            <div>
+
+                <label>Date (BS — e.g.: 2082-06-15):</label>
+
+                <input type="text" name="bs_date" placeholder="2082-06-15" required>
+
+            </div>
+
+            <div>
+
+                <label>Hour:</label>
+
+                <select name="hour" required>
+                    <option value="0">12 AM (midnight)</option>
+                    <option value="1">1 AM</option>
+                    <option value="2">2 AM</option>
+                    <option value="3">3 AM</option>
+                    <option value="4">4 AM</option>
+                    <option value="5">5 AM</option>
+                    <option value="6">6 AM</option>
+                    <option value="7">7 AM</option>
+                    <option value="8">8 AM</option>
+                    <option value="9">9 AM</option>
+                    <option value="10">10 AM</option>
+                    <option value="11">11 AM</option>
+                    <option value="12">12 PM (noon)</option>
+                    <option value="13">1 PM</option>
+                    <option value="14">2 PM</option>
+                    <option value="15">3 PM</option>
+                    <option value="16">4 PM</option>
+                    <option value="17">5 PM</option>
+                    <option value="18">6 PM</option>
+                    <option value="19">7 PM</option>
+                    <option value="20">8 PM</option>
+                    <option value="21">9 PM</option>
+                    <option value="22">10 PM</option>
+                    <option value="23">11 PM</option>
+                </select>
+
+            </div>
+
+        </div>
+
+        <div class="form-row">
+
+            <div>
+
+                <label>Location:</label>
+
+                <select name="location">
+
+                    {% for loc in locations %}
+
+                        <option value="{{ loc }}">{{ loc }}</option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <div>
+
+                <label>New Location (Optional):</label>
+
+                <input type="text" name="other_location" placeholder="If not listed">
+
+            </div>
+
+        </div>
+
+        <div class="form-row">
+
+            <div>
+
+                <label>Vehicle:</label>
+
+                <select name="vehicle">
+
+                    <option>Two-Wheeler</option>
+
+                    <option>Three-Wheeler</option>
+
+                    <option>Four-Wheeler</option>
+
+                    <option>Two-Wheeler + Four-Wheeler</option>
+
+                    <option>Two-Wheeler + Three-Wheeler</option>
+
+                </select>
+
+            </div>
+
+            <div>
+
+                <label>Cause:</label>
+
+                <select name="cause">
+
+                    <option>Speeding</option>
+
+                    <option>Negligence</option>
+
+                    <option>Overtaking</option>
+
+                    <option>Drunk Driving</option>
+
+                    <option>Wrong Side</option>
+
+                    <option>Brake Failure</option>
+
+                    <option>Hit and Run</option>
+
+                    <option>Other</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <div class="form-row">
+
+            <div>
+
+                <label>Deaths:</label>
+
+                <input type="number" name="deaths" value="0" min="0">
+
+            </div>
+
+            <div>
+
+                <label>Serious Injuries:</label>
+
+                <input type="number" name="serious" value="0" min="0">
+
+            </div>
+
+            <div>
+
+                <label>Minor Injuries:</label>
+
+                <input type="number" name="minor" value="0" min="0">
+
+            </div>
+
+        </div>
+
+        <button type="submit">💾 Save Record</button>
+
+    </form>
+
+</div>
+
+
+<!-- SECTION 2: BULK CSV -->
+
+<div class="card">
+
+    <h3>📤 Bulk CSV Upload</h3>
+
+    <p style="color:#666;">
+
+        To add multiple records at once, upload a CSV file.
+
+        Download the template to view the required format.
+
+    </p>
+
+    <p>
+
+        <a href="{% url 'download_template' %}">
+
+            📥 Download CSV Template
+
+        </a>
+
+    </p>
+
+    <form method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        <input type="file"
+
+               name="csv_file"
+
+               accept=".csv"
+
+               required
+
+               style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;
+
+                      width: 100%; box-sizing: border-box;">
+
+        <br><br>
+
+        <button type="submit">
+
+            📤 Upload and Import
+
+        </button>
+
+    </form>
+
+</div>
+
+
+{% if upload_result %}
+
+<div class="card" style="border-left: 4px solid #388e3c;">
+
+    <h3>📊 Import Summary</h3>
+
+    <table>
+
+        <tr>
+
+            <th>Total Rows</th>
+
+            <td>{{ upload_result.total }}</td>
+
+        </tr>
+
+        <tr>
+
+            <th>✅ Added</th>
+
+            <td>
+
+                <b style="color:#388e3c;">
+
+                    {{ upload_result.created }}
+
+                </b>
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <th>❌ Rejected</th>
+
+            <td>
+
+                <b style="color:#d32f2f;">
+
+                    {{ upload_result.failed }}
+
+                </b>
+
+            </td>
+
+        </tr>
+
+    </table>
+
+    {% if upload_result.errors %}
+
+    <h4>Rejected Rows:</h4>
+
+    <ul style="color:#b71c1c; font-size: 13px;">
+
+        {% for e in upload_result.errors %}
+
+            <li>{{ e }}</li>
+
+        {% endfor %}
+
+    </ul>
+
+    {% endif %}
+
+</div>
+
+{% endif %}
+
+{% endblock %}
+```

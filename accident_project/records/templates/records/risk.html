@@ -1,0 +1,74 @@
+{% extends "records/base.html" %}
+
+{% block content %}
+<h1>⚠️ Accident Risk Calculator</h1>
+
+<div class="card">
+    <p style="color:#666;">Predict how dangerous conditions are <b>BEFORE</b> an accident —
+    based on fatality rates from {{ total_records }} real Surkhet accidents (2078-2083 BS).</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-row">
+            <div>
+                <label>Vehicle Type:</label>
+                <select name="vehicle" required>
+                    {% for v in vehicle_options %}
+                        <option value="{{ v }}">{{ v }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label>Time:</label>
+                <select name="time" required>
+                    <option value="Day">Day</option>
+                    <option value="Night">Night (8PM-4AM)</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div>
+                <label>Season:</label>
+                <select name="season" required>
+                    {% for s in season_options %}
+                        <option value="{{ s }}">{{ s }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label>Location (Top 15 areas):</label>
+                <select name="location" required>
+                    {% for l in location_options %}
+                        <option value="{{ l }}">{{ l }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <button type="submit">⚡ Calculate Risk</button>
+    </form>
+</div>
+
+{% if score is not None %}
+<div class="card" style="text-align: center; border-top: 4px solid {{ color }};">
+    <h2 style="color: {{ color }};">{{ emoji }} {{ score }}/10 — {{ band }} RISK</h2>
+
+    <div style="background:#eee; border-radius: 10px; height: 24px; margin: 15px 0;">
+        <div style="background: {{ color }}; width: {{ score }}0%;
+                    height: 24px; border-radius: 10px;"></div>
+    </div>
+
+    <table style="max-width: 450px; margin: 0 auto; text-align: left;">
+        <tr><th>Factor</th><th>Choice</th><th>Fatality Rate</th></tr>
+        <tr><td>Vehicle</td><td>{{ vehicle }}</td><td>{{ vehicle_pct }}%</td></tr>
+        <tr><td>Time</td><td>{{ time_slot }}</td><td>{{ time_pct }}%</td></tr>
+        <tr><td>Season</td><td>{{ season }}</td><td>{{ season_pct }}%</td></tr>
+        <tr><td>Location</td><td>{{ location }}</td><td>{{ location_pct }}%</td></tr>
+    </table>
+
+    <p style="color:#888; font-size: 13px; margin-top: 15px;">
+        Points derived from fatality rates observed in local police records (2078-2083 BS).
+        Higher rate = higher points. Max score: 10.
+    </p>
+</div>
+{% endif %}
+{% endblock %}

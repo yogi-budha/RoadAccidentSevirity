@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Surkhet Accident System</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="navbar">
+        <span class="logo">🚦 Surkhet Accident System</span>
+       {% if user.is_authenticated %}
+            <a href="/">🏠 Home</a>
+            <a href="/entry/">📝 Report</a>
+            <a href="/bulk/">📤 Upload</a>
+            <a href="/records/">📋 Records</a>
+            <a href="/alerts/">🔔 Alerts</a>
+            <a href="/analysis/">📊 Analysis</a>
+            <a href="/risk/">⚠️ Risk</a>
+            <a href="/predict/">🤖 Predict</a>
+            <a href="/emergency/">🚑 Emergency</a>
+            <a href="/map/">🗺️ Map</a>
+            <a href="/retrain/">🔄 Retrain</a>
+            <span class="user-info">👤 {{ user.username }}</span>
+            <a href="/logout/" class="logout-link">Logout</a>
+        {% else %}
+            <a href="/predict/">🤖 Predict Severity</a>
+            <a href="/map/">🗺️ Hotspot Map</a>
+            <a href="/login/" style="color:#ffd54f;">🔐 Login (Police/Agency)</a>
+        {% endif %}
+    </div>
+
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="flash flash-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
