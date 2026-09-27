@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Local databases and migration backups
+db.sqlite3
+db.sqlite3.backup-*
+
+# Generated/runtime files
+*.log
+*.pyc
+last_train_count.txt

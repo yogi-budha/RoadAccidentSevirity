@@ -1,0 +1,10 @@
+Django==5.2.17
+joblib
+nepali-datetime
+numpy
+pandas
+openpyxl
+requests
+scikit-learn
+xgboost
+psycopg[binary]>=3.2,<4
